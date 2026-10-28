@@ -45,7 +45,6 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 
-# ---------- 1. Webhook verification (Meta calls this once when you save the webhook) ----------
 @app.get("/webhook")
 async def verify(request: Request):
     p = request.query_params
@@ -54,7 +53,6 @@ async def verify(request: Request):
     raise HTTPException(status_code=403, detail="Verification failed")
 
 
-# ---------- 2. Receive lead events ----------
 def valid_signature(raw: bytes, header: str | None) -> bool:
     if not header or not APP_SECRET:
         return False
@@ -81,7 +79,7 @@ async def fetch_and_broadcast(leadgen_id: str):
         "fields": fields,
     }
     seen_ids.add(leadgen_id)
-    leads.insert(0, lead)           # newest first
+    leads.insert(0, lead)
     await manager.broadcast({"type": "new_lead", "lead": lead})
 
 
@@ -100,7 +98,6 @@ async def receive(request: Request):
     return {"status": "ok"}
 
 
-# ---------- 3. WebSocket for the mobile app ----------
 @app.websocket("/ws")
 async def ws_endpoint(ws: WebSocket):
     await manager.connect(ws)
