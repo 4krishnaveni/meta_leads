@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView, FlatList, Text, View, StyleSheet, StatusBar } from 'react-native';
 
-const BACKEND_HOST = 'fdbd141p-8000.inc1.devtunnels.ms'; // <- your ngrok host, no https://
+const BACKEND_HOST = 'health-sudden-calendar-chancellor.trycloudflare.com';
 const WS_URL = `wss://${BACKEND_HOST}/ws`;
 
 export default function App() {

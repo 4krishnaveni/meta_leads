@@ -110,7 +110,6 @@ async def ws_endpoint(ws: WebSocket):
         manager.disconnect(ws)
 
 
-# ---------- Debug helper: fake a lead without Meta (for local testing only) ----------
 @app.post("/debug/fake-lead")
 async def fake_lead():
     import time
